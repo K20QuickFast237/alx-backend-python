@@ -13,8 +13,9 @@ def stream_users_in_batches(batch_size):
 
 # Function that processes each batch to filter users over the age of25`
 def batch_processing(batch_size):
+    resutls = []
     for batch in stream_users_in_batches(batch_size):
         for user in batch:
-            if not user[3] > 25:
-                print(user)
-                batch.remove(user)
+            if user[3] > 25:
+                resutls.append(user)
+    return resutls
