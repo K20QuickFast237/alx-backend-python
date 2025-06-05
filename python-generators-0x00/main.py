@@ -24,8 +24,16 @@ if connection:
         cursor.close()
 '''
 
+'''
 streamer = __import__('0-stream_users')
 
 # iterate over the generator function and print only the first 6 rows
 for user in islice(streamer.stream_users(), 6):
     print(user)
+'''
+
+batcher = __import__('1-batch_processing')
+for user in islice(batcher.stream_users_in_batches(2), 6):
+    print(user)
+batcher.stream_users_in_batches(2)
+# batcher.batch_processing(2)
