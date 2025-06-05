@@ -1,3 +1,4 @@
+from itertools import islice
 seed = __import__('seed')
 
 connection = seed.connect_db()
@@ -8,7 +9,8 @@ if connection:
 
     connection = seed.connect_to_prodev()
 
-    if connection:
+'''
+    if connection: 
         seed.create_table(connection)
         # seed.insert_data_from_csv(connection, 'user_data.csv')
         cursor = connection.cursor()
@@ -20,3 +22,10 @@ if connection:
         rows = cursor.fetchall()
         print(rows)
         cursor.close()
+'''
+
+streamer = __import__('0-stream_users')
+
+# iterate over the generator function and print only the first 6 rows
+for user in islice(streamer.stream_users(connection), 6):
+    print(user)
